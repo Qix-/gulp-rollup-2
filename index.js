@@ -169,7 +169,9 @@ const inside = (opts) => {
 				io.input = io.input ? path.relative(_dir, io.input) : _inp;
 				io.cache = io.cache ? cache[ch] : false;
 
-				const bundle = await rollup.rollup(io);
+				const rollupBundler = io.rollup || rollup;
+
+				const bundle = await rollupBundler.rollup(io);
 				cache[ch] = bundle.cache;
 
 				return {
@@ -257,7 +259,9 @@ const outside = async (opts) => {
 		io.input = path.relative(_dir, io.input);
 		io.cache = io.cache ? cache[ch] : false;
 
-		const bundle = await rollup.rollup(io);
+		const rollupBundler = io.rollup || rollup;
+
+		const bundle = await rollupBundler.rollup(io);
 		cache[ch] = bundle.cache;
 
 		return {
